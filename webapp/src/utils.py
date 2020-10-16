@@ -105,9 +105,6 @@ def clear_data_storage(path):
     if os.path.isdir(path):
         shutil.rmtree(path)
 
-#    if not os.path.isdir(temp_zip_folder):
-#        os.makedirs(temp_zip_folder)
-
 def get_series_names(folder_names):
     return [name.split('/')[-1] for name in folder_names]
 
@@ -151,24 +148,7 @@ def get_DCM_valid_folders(folder, min_dcm=2):
     return DCM_valid_folder
 
 def download_button(object_to_download, download_filename, button_text, pickle_it=False):
-    """
-    Generates a link to download the given object_to_download.
-    Params:
-    ------
-    object_to_download:  The object to be downloaded.
-    download_filename (str): filename and extension of file. e.g. mydata.csv,
-    some_txt_output.txt download_link_text (str): Text to display for download
-    link.
-    button_text (str): Text to display on download button (e.g. 'click here to download file')
-    pickle_it (bool): If True, pickle file.
-    Returns:
-    -------
-    (str): the anchor tag to download object_to_download
-    Examples:
-    --------
-    download_link(your_df, 'YOUR_DF.csv', 'Click to download data!')
-    download_link(your_str, 'YOUR_STRING.txt', 'Click to download text!')
-    """
+    
     if pickle_it:
         try:
             object_to_download = pickle.dumps(object_to_download)
@@ -262,7 +242,7 @@ def read_DICOM_slices(path):
         if fname[-4:] == '.dcm': # Read only dicom files inside folders.
             files.append(pydicom.dcmread(fname))
 
-    # Skip files with no SliceLocation (eg scout views)
+    # Skip files with no SliceLocation
     slices = []
     skipcount = 0
     for f in files:
@@ -371,29 +351,3 @@ def get_state(hash_funcs=None):
         session._custom_session_state = SessionState(session, hash_funcs)
 
     return session._custom_session_state
-
-def display_top(snapshot, key_type='lineno', limit=3):
-    snapshot = snapshot.filter_traces((
-        tracemalloc.Filter(False, "<frozen importlib._bootstrap>"),
-        tracemalloc.Filter(False, "<unknown>"),
-    ))
-    top_stats = snapshot.statistics(key_type)
-
-    print("Top %s lines" % limit)
-    for index, stat in enumerate(top_stats[:limit], 1):
-        frame = stat.traceback[0]
-        # replace "/path/to/module/file.py" with "module/file.py"
-        filename = os.sep.join(frame.filename.split(os.sep)[-2:])
-        print("#%s: %s:%s: %.1f KiB"
-              % (index, filename, frame.lineno, stat.size / 1024))
-        line = linecache.getline(frame.filename, frame.lineno).strip()
-        if line:
-            print('    %s' % line)
-
-    other = top_stats[limit:]
-    if other:
-        size = sum(stat.size for stat in other)
-        print("%s other: %.1f KiB" % (len(other), size / 1024))
-    total = sum(stat.size for stat in top_stats)
-    print("Total allocated size: %.1f KiB" % (total / 1024))
-    print('')

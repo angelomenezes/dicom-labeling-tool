@@ -1,7 +1,6 @@
 import streamlit as st
 from src.utils import *
 import gc
-import tracemalloc, linecache
 
 # Hide FileUploader deprecation
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -33,8 +32,6 @@ with open("style.css") as f:
     
 if __name__ == "__main__": 
     
-    #tracemalloc.start()
-
     state = get_state()
 
     st.title('DICOM Viewer')
@@ -179,11 +176,8 @@ if __name__ == "__main__":
                             ' Then, they are automatically deleted.')
         st.sidebar.markdown('4. If you want to manually reset/delete previously uploaded data via URL, ' 
                             'clear the text input, and press the button to refresh input data. '
-                            'In case you are using the File Uploader widget, perform the same'
+                            'In case you are using the File Uploader widget, perform the same '
                             'actions described above and then refresh the page with F5. ')
     
     gc.collect()
     state.sync()
-
-    #snapshot = tracemalloc.take_snapshot()
-    #display_top(snapshot)
