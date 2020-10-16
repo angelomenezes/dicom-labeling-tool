@@ -11,7 +11,7 @@ This repository contains a simple web-based DICOM viewer built using Streamlit. 
 The tool only deals with zip files that have one or more folders, normally represented as `series`, with dicom files inside. A [sample](sample/sample.zip) of an acceptable zip file can be checked inside the sample folder.
 Zip files can be uploaded via public shared URLs from *Google Drive* or using the file upload widget. 
 
-As the demo is hosted on Heroku and their free tier dyno has limited memory resources, uploaded zip files are limited to 100MB. However, this restriction can be adjusted by code when running the web viewer locally.
+As the demo is hosted on Heroku and their free tier dyno has limited memory resources, uploaded zip files are limited to **100MB**. However, this restriction can be adjusted by code when running the web viewer locally.
 
 
 # Setup
