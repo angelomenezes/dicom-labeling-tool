@@ -1,7 +1,7 @@
 #FROM heroku/miniconda
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3:4.8.2
 
-# Grab requirements.txt.
+# Grab requirements.txt
 ADD ./webapp/requirements.txt /tmp/requirements.txt
 
 # Install Python 3.6.10, specific for working with gdcm
@@ -18,6 +18,8 @@ ADD ./webapp /opt/webapp/
 WORKDIR /opt/webapp
 
 RUN bash setup.sh
+
+ENV PORT=8085
 
 EXPOSE 8501
 
