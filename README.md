@@ -2,7 +2,7 @@
 
 This repository contains a simple web-based DICOM viewer built using Streamlit. The viewer also has a tool to annotate which slices of a specific series of dicom files have anomalies. Annotations are in .JSON format with labels "Anomaly" and "Slices" for each series. This tool was meant to be a weekend project for me to learn how to work with Streamlit, Docker and Heroku, but it took a little more than that to figure out how to set up everything and to make it look good.
 
-[Demo hosted on Heroku](https://dicom-labeling-tool.herokuapp.com/)
+[Demo hosted on ~Heroku~ Render](https://dicom-labeling-tool.onrender.com/) (Now that Heroku has canceled its free-tier)
 
 ![](sample/webapp-sample.gif)
 
